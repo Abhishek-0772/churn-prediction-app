@@ -60,8 +60,15 @@ if submitted:
     encoded_internet = label_mapping[internet_service]
     encoded_contract = label_mapping[contract]
 
-    input_data = np.array([[tenure, encoded_internet, encoded_contract, monthly_charges, total_charges]])
+    input_data = pd.DataFrame([{
+    'tenure': tenure,
+    'InternetService': encoded_internet,
+    'Contract': encoded_contract,
+    'MonthlyCharges': monthly_charges,
+    'TotalCharges': total_charges
+}])
     prediction = model.predict(input_data)
+
     
     # Predict probability if available
     probability = model.predict_proba(input_data)[0][1] * 100 if hasattr(model, "predict_proba") else None
