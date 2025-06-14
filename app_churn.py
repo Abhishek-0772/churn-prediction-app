@@ -1,19 +1,18 @@
 import streamlit as st
 import pandas as pd
 from joblib import load
-import numpy as np
 
-# Load the trained model (XGBoost)
+# Load the trained XGBoost model
 model = load('xgboost_churn_model_v1.joblib')
 
-# Page Configuration
+# Set page configuration
 st.set_page_config(
     page_title="Customer Churn Predictor",
     page_icon="📉",
     layout="centered"
 )
 
-# Sidebar with instructions
+# Sidebar Instructions
 with st.sidebar:
     st.title("🧾 How to Use")
     st.markdown("""
@@ -24,7 +23,7 @@ with st.sidebar:
     👉 Use this insight for retention strategies!
     """)
 
-# Main Title
+# App Title
 st.title("📊 Customer Churn Prediction App")
 st.markdown("Fill out the customer details below to get a prediction:")
 
@@ -45,43 +44,38 @@ with st.form("churn_form"):
 
     submitted = st.form_submit_button("🔍 Predict Churn")
 
-# Encoding categorical variables
+# Encoding
 label_mapping = {
-    'DSL': 0,
-    'Fiber optic': 1,
-    'No': 2,
-    'Month-to-month': 0,
-    'One year': 1,
-    'Two year': 2,
+    'DSL': 0, 'Fiber optic': 1, 'No': 2,
+    'Month-to-month': 0, 'One year': 1, 'Two year': 2
 }
 
-# Make Prediction
 if submitted:
     encoded_internet = label_mapping[internet_service]
     encoded_contract = label_mapping[contract]
 
+    # Match training column names exactly
     input_data = pd.DataFrame([{
-    'tenure': tenure,
-    'InternetService': encoded_internet,
-    'Contract': encoded_contract,
-    'MonthlyCharges': monthly_charges,
-    'TotalCharges': total_charges
-}])
-    prediction = model.predict(input_data)
+        'tenure': tenure,
+        'InternetService': encoded_internet,
+        'Contract': encoded_contract,
+        'MonthlyCharges': monthly_charges,
+        'TotalCharges': total_charges
+    }])
 
-    
-    # Predict probability if available
+    # Predict
+    prediction = model.predict(input_data)
     probability = model.predict_proba(input_data)[0][1] * 100 if hasattr(model, "predict_proba") else None
 
     st.subheader("📈 Prediction Result")
 
     if prediction[0] == 0:
         st.success("✅ This customer is likely to **stay**.")
-        if probability:
+        if probability is not None:
             st.markdown(f"**Confidence**: 🌟 {100 - probability:.2f}% chance to stay.")
     else:
         st.error("⚠️ This customer is likely to **churn**.")
-        if probability:
+        if probability is not None:
             st.markdown(f"**Confidence**: 🔥 {probability:.2f}% chance to churn.")
 
 # Footer
@@ -94,13 +88,10 @@ st.markdown("""
 
 # LinkedIn Button
 st.markdown("### 🤝 Let's Connect")
-st.markdown(
-    """
-    <a href="https://www.linkedin.com/in/abhishekksharmma/" target="_blank">
-        <button style='font-size:16px; background-color:#0072b1; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;'>
-            🔗 Visit My LinkedIn
-        </button>
-    </a>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<a href="https://www.linkedin.com/in/abhishekksharmma/" target="_blank">
+    <button style='font-size:16px; background-color:#0072b1; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;'>
+        🔗 Visit My LinkedIn
+    </button>
+</a>
+""", unsafe_allow_html=True)
