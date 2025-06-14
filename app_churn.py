@@ -4,7 +4,7 @@ from joblib import load
 import numpy as np
 
 # Load the trained model
-model = load('random_forest_model_Inclass.joblib')
+model = load('xgboost_churn_model_v1.joblib')
 
 # Page Configuration
 st.set_page_config(
