@@ -17,12 +17,12 @@ This is a web app built using **Streamlit** that predicts whether a customer is 
 ## 🧑‍💻 How to Run Locally
 
 ```bash
-git clone https://github.com/<your-username>/churn-prediction-app.git
+git clone https://github.com/abhishekksharma/churn-prediction-app.git
 cd churn-prediction-app
 pip install -r requirements.txt
 streamlit run app_churn.py
+```
 
-
-## 🙋‍♂️ About Me
+## 🧑‍💻 About Me
 Hi, I'm Aayush — a data enthusiast passionate about using ML to solve real-world problems.  
-🔗 [Connect with me on LinkedIn](https://www.linkedin.com/in/abhishekksharmma/)
+🔗 [Connect with me on LinkedIn](https://www.linkedin.com/in/abhishekksharma/)
