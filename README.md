@@ -25,4 +25,4 @@ streamlit run app_churn.py
 
 ## 🧑‍💻 About Me
 Hi, I'm Aayush — a data enthusiast passionate about using ML to solve real-world problems.  
-🔗 [Connect with me on LinkedIn](https://www.linkedin.com/in/abhishekksharma/)
+🔗 [Connect with me on LinkedIn](https://www.linkedin.com/in/abhishekksharmma/)
