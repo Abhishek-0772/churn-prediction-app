@@ -23,6 +23,12 @@ pip install -r requirements.txt
 streamlit run app_churn.py
 ```
 
+
+## 🚀 Live Demo
+Try the app here: [https://churn-prediction-app-0.streamlit.app/](https://churn-prediction-app-0.streamlit.app/)
+
+
 ## 🧑‍💻 About Me
 Hi, I'm Abhishek Sharma — a data enthusiast passionate about using ML to solve real-world problems.  
 🔗 [Connect with me on LinkedIn](https://www.linkedin.com/in/abhishekksharmma/)
+
