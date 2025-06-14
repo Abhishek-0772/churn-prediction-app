@@ -3,7 +3,7 @@ import pandas as pd
 from joblib import load
 import numpy as np
 
-# Load the trained model
+# Load the trained model (XGBoost)
 model = load('xgboost_churn_model_v1.joblib')
 
 # Page Configuration
@@ -17,7 +17,7 @@ st.set_page_config(
 with st.sidebar:
     st.title("🧾 How to Use")
     st.markdown("""
-    This app predicts if a customer is likely to **churn** using a trained **Random Forest** model.
+    This app predicts if a customer is likely to **churn** using a trained **XGBoost** model.
     
     👉 Fill in the details on the main screen  
     👉 Click **Predict** to get the result  
@@ -63,11 +63,8 @@ if submitted:
     input_data = np.array([[tenure, encoded_internet, encoded_contract, monthly_charges, total_charges]])
     prediction = model.predict(input_data)
     
-    # Optional: Predict probability
-    if hasattr(model, "predict_proba"):
-        probability = model.predict_proba(input_data)[0][1] * 100
-    else:
-        probability = None
+    # Predict probability if available
+    probability = model.predict_proba(input_data)[0][1] * 100 if hasattr(model, "predict_proba") else None
 
     st.subheader("📈 Prediction Result")
 
@@ -81,16 +78,14 @@ if submitted:
             st.markdown(f"**Confidence**: 🔥 {probability:.2f}% chance to churn.")
 
 # Footer
-# Footer with LinkedIn Button
-# Footer with credits
 st.markdown("""
 <hr style="margin-top: 3rem; margin-bottom: 1rem;">
 <small>
-    Built with ❤️ using Streamlit | Model: Random Forest  
+    Built with ❤️ using Streamlit | Model: <strong>XGBoost</strong>  
 </small>
 """, unsafe_allow_html=True)
 
-# LinkedIn button
+# LinkedIn Button
 st.markdown("### 🤝 Let's Connect")
 st.markdown(
     """
@@ -102,4 +97,3 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
